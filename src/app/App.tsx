@@ -7,7 +7,7 @@ import Battlefield from './components/Battlefield';
 import Stats from './components/Stats';
 import { getBattleField, makeClone } from './helpers/generateBattleField';
 import _ from 'lodash';
-import './App.css';
+import './../assets/css/App.css';
 
 
 function App() {

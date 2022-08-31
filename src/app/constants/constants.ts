@@ -1,8 +1,9 @@
-import aircraftIcon from '../assets/Aircraft _Shape.png';
-import battleShipIcon from '../assets/Battleship_Shape.png';
-import carrierIcon from '../assets/Carrier_Shape.png';
-import cruiserIcon from '../assets/Cruiser_Shape.png';
-import submarineIcon from '../assets/Submarine_Shape.png';
+import aircraftIcon from '../../assets/images/Aircraft _Shape.png';
+import battleShipIcon from '../../assets/images/Battleship_Shape.png';
+import carrierIcon from '../../assets/images/Carrier_Shape.png';
+import cruiserIcon from '../../assets/images/Cruiser_Shape.png';
+import submarineIcon from '../../assets/images/Submarine_Shape.png';
+
 
 export const shipTypes = [
     {

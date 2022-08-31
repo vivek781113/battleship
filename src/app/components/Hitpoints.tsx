@@ -1,6 +1,6 @@
 import React from 'react';
-import hitSmall from '../assets/Hit small.png';
-import missSmall from '../assets/Miss small.png';
+import hitSmall from '../../assets/images/Hit small.png';
+import missSmall from '../../assets/images/Miss small.png';
 export const Hitpoints: React.FC<{ hitPoints: any, hits: any }> = ({ hitPoints, hits }) => {
     let hitPointsCounter = [];
     let hitCounter = [];
