@@ -1,6 +1,6 @@
 import React from 'react';
-import hit from './../../assets/img/Hit.png';
-import miss from './../../assets/img/Miss.png';
+import hit from '../assets/Hit.png';
+import miss from '../assets/Miss.png';
 
 const Cell: React.FC<{ cellState: any, onCellClick: any, x: any, y: any }> = ({ cellState, onCellClick, x, y }) => {
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import Cell from './Cell';
-// import StartButton from "./StartButton";
 
-const Battlefield: React.FC<{ battleField: any, hits: any, onCellClick: any, onClick: any, screenMode: any }> = ({ battleField, hits, onCellClick, onClick, screenMode }) => {
+const Battlefield: React.FC<{ battleField: any, hits: any, onCellClick: any, screenMode: any }> = ({ battleField, hits, onCellClick, screenMode }) => {
     return (
         <Col lg={5} md={6} sm={12} xs={12} className='battleFieldPanel'>
             {!battleField &&
@@ -11,7 +10,6 @@ const Battlefield: React.FC<{ battleField: any, hits: any, onCellClick: any, onC
                     <tbody>
                         <tr>
                             <td className='emptyBattleField'>
-                                {/* <StartButton onClick={() => onClick()} /> */}
                             </td>
                         </tr>
                     </tbody>
@@ -49,7 +47,6 @@ const Battlefield: React.FC<{ battleField: any, hits: any, onCellClick: any, onC
                             <td>
                                 <div className='text-center'>
                                     <h1>Game over</h1>
-                                    {/* <StartButton onClick={() => onClick()} /> */}
                                 </div>
                             </td>
                         </tr>

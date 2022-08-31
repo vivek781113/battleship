@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { shipTypes } from './constants/constants';
 import './App.css';
@@ -18,6 +18,21 @@ function App() {
   const [hits, setHits] = useState(() => 0);
   const [maxHits, setMaxHits] = useState(() => 0);
   const [screenMode, setScreenMode] = useState(() => null);
+
+  useEffect(() => {
+    let newFlotilla = _.cloneDeep(shipTypes);
+    setBattleField(getBattleField());
+    console.log(battleField);
+    setHits(0);
+    setShots(0);
+    setFlotilla(newFlotilla);
+
+    return () => {
+
+    }
+  }, []);
+
+
 
   const onCellClick = (x: any, y: any) => {
     let newBattleField = makeClone(battleField);
@@ -58,6 +73,7 @@ function App() {
   const onClick = () => {
     let newFlotilla = _.cloneDeep(shipTypes);
     setBattleField(getBattleField());
+    console.log(battleField);
     setHits(0);
     setShots(0);
     setFlotilla(newFlotilla);
@@ -74,7 +90,7 @@ function App() {
     <Battlefield
       hits={hits}
       battleField={battleField}
-      onClick={() => onClick()}
+      // onClick={() => onClick()}
       onCellClick={(x: any, y: any) => onCellClick(x, y)}
       screenMode={screenMode}
     />
