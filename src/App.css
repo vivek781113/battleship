@@ -16,38 +16,6 @@
     margin-bottom: 22px;
 }
 
-.navbar-default {
-    background-color: #9498f8;
-    background: #9498f8;
-    border-color: #9498f8;
-    border-radius: 0;
-    color: white;
-    margin-bottom: 0;
-}
-
-.navbar-default .navbar-brand {
-    color: white;
-}
-
-.navbar-default .navbar-brand:focus {
-    color: white;
-}
-
-.navbar-default .navbar-nav > li > a {
-    color: white;
-}
-
-.navbar-default .navbar-nav > li > a:focus {
-    color: white;
-}
-
-.color {
-    color: #58b4a0;
-}
-
-h1 {
-    color: #ec6361;
-}
 
 @media (min-width: 320px) {
     table {

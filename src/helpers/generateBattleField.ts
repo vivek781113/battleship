@@ -5,15 +5,7 @@ import { shipTypes } from "../constants/constants";
 * */
 export const getBattleField = () => {
 
-  // let battleField: [][] = [];
-
   let battleField: any[][] = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => null));
-  // for (let i = 0; i < 10; i++) {
-  //   battleField[i] = [10];
-  //   for (let j = 0; j < 10; j++) {
-  //     battleField[i][j] = null;
-  //   }
-  // }
   for (let i = 0; i < shipTypes.length; i++) {
     battleField = generateShipPositions(shipTypes[i], battleField);
   }
@@ -41,7 +33,6 @@ const generateShipPositions = (ship: any, battleField: any) => {
       battleField = refillNeighbourCells(battleField, x, y, ship.id);
 
       for (let i = 0; i < directions.length; i++) {
-
         let tempBattlefield: any = makeClone(battleField);
         let newBattleField = tryDirections(directions[i], ship, shipStartPosition, tempBattlefield);
         if (newBattleField !== null) {
@@ -214,7 +205,7 @@ const getRandomCoordinate = () => {
 /*
 * Returns random number in range from 0 to @param 'max'
 * */
-const getRandomNumber = (max) => {
+const getRandomNumber = (max: number) => {
   return Math.floor(Math.random() * max)
 };
 

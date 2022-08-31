@@ -1,13 +1,13 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { shipTypes } from './constants/constants';
-import './App.css';
-// import Nav from "./components/Nav";
 
 import Battlefield from './components/Battlefield';
 import Stats from './components/Stats';
 import { getBattleField, makeClone } from './helpers/generateBattleField';
 import _ from 'lodash';
+import './App.css';
 
 
 function App() {
@@ -17,12 +17,11 @@ function App() {
   const [shots, setShots] = useState(() => 0);
   const [hits, setHits] = useState(() => 0);
   const [maxHits, setMaxHits] = useState(() => 0);
-  const [screenMode, setScreenMode] = useState(() => null);
+  const [screenMode, setScreenMode] = useState('desktop');
 
   useEffect(() => {
     let newFlotilla = _.cloneDeep(shipTypes);
     setBattleField(getBattleField());
-    console.log(battleField);
     setHits(0);
     setShots(0);
     setFlotilla(newFlotilla);
@@ -31,8 +30,6 @@ function App() {
 
     }
   }, []);
-
-
 
   const onCellClick = (x: any, y: any) => {
     let newBattleField = makeClone(battleField);
@@ -69,16 +66,6 @@ function App() {
     }
   }
 
-
-  const onClick = () => {
-    let newFlotilla = _.cloneDeep(shipTypes);
-    setBattleField(getBattleField());
-    console.log(battleField);
-    setHits(0);
-    setShots(0);
-    setFlotilla(newFlotilla);
-  }
-
   let statsPanel = (
     <Stats
       flotilla={flotilla}
@@ -90,7 +77,6 @@ function App() {
     <Battlefield
       hits={hits}
       battleField={battleField}
-      // onClick={() => onClick()}
       onCellClick={(x: any, y: any) => onCellClick(x, y)}
       screenMode={screenMode}
     />
@@ -99,16 +85,8 @@ function App() {
 
   return (
     <div className='main-content'>
-      {/* <Nav
-        resetGame={() => this.resetGame()}
-        screenMode={screenMode}
-      /> */}
-      <Container>
-        {
-          screenMode === 'desktop'
-            ? <Row className='show-grid'>{statsPanel}{battleFieldPanel}</Row>
-            : <Row className='show-grid'>{battleFieldPanel}{statsPanel}</Row>
-        }
+      <Container fluid>
+        <Row>{statsPanel}{battleFieldPanel}</Row>
       </Container>
     </div>
   );
