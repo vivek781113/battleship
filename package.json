@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.184",
+    "bootstrap": "latest",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-bootstrap": "latest",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
