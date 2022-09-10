@@ -1,95 +1,103 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { cloneDeep } from 'lodash';
 import { useEffect, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
+import { BattleField } from './components/BattleField';
+import { Nav } from './components/Nav';
+import { Stats } from './components/Stats';
 import { shipTypes } from './constants/constants';
-
-import Battlefield from './components/Battlefield';
-import Stats from './components/Stats';
-import { getBattleField, makeClone } from './helpers/generateBattleField';
-import _ from 'lodash';
-import './../assets/css/App.css';
-
+import { getBattleField } from './helpers/generateBattleField';
+import { getMaxHits } from './helpers/getMaxHits';
+import './App.css';
+import { useDispatch } from 'react-redux';
+import { battleshipActions } from './store/battleship.slice';
 
 function App() {
+  const {
+    setBattlefield,
+    setFlotilla,
+    setHits,
+    setMaxHits,
+    setShots,
+    updateBattleField,
+  } = battleshipActions;
 
-  const [battleField, setBattleField] = useState<any>(() => null);
-  const [flotilla, setFlotilla] = useState<any>(() => null);
-  const [shots, setShots] = useState(() => 0);
-  const [hits, setHits] = useState(() => 0);
-  const [maxHits, setMaxHits] = useState(() => 0);
-  const [screenMode, setScreenMode] = useState('desktop');
+  const dispatch = useDispatch();
 
+  const [screenMode, setScreenMode] = useState<any>(null);
   useEffect(() => {
-    let newFlotilla = _.cloneDeep(shipTypes);
-    setBattleField(getBattleField());
+    const maxHits = getMaxHits();
+    let newFlotilla = cloneDeep(shipTypes);
+    dispatch(setFlotilla(newFlotilla));
+    dispatch(setMaxHits(maxHits));
+  }, []);
+  useEffect(() => {
+    window.addEventListener('resize', () =>
+      updateDimensions(window.innerWidth)
+    );
+    updateDimensions(window.innerWidth);
+
+    return () => {
+      window.removeEventListener('resize', () =>
+        updateDimensions(window.innerWidth)
+      );
+    };
+  }, []);
+
+  const onClick = () => {
+    let newFlotilla = cloneDeep(shipTypes);
+    dispatch(setBattlefield(getBattleField()));
+    dispatch(setHits(0));
+    dispatch(setShots(0));
+    setFlotilla(newFlotilla);
+  };
+
+  const resetGame = () => {
+    let newFlotilla = cloneDeep(shipTypes);
+    dispatch(setBattlefield(null));
     setHits(0);
     setShots(0);
     setFlotilla(newFlotilla);
+  };
 
-    return () => {
+  const onCellClick = (x, y) => {
+    dispatch(updateBattleField({ x, y }));
+  };
 
-    }
-  }, []);
-
-  const onCellClick = (x: any, y: any) => {
-    let newBattleField = makeClone(battleField);
-    let shot = shots + 1;
-    let newFlotilla: any = [...flotilla];
-    let cellValue = battleField[x][y];
-    if (cellValue >= 100) {
-      switch (cellValue) {
-        case 100:
-          newFlotilla[0].hits = newFlotilla[0].hits + 1;
-          break;
-        case 200:
-          newFlotilla[1].hits = newFlotilla[1].hits + 1;
-          break;
-        case 300:
-          newFlotilla[2].hits = newFlotilla[2].hits + 1;
-          break;
-        case 400:
-          newFlotilla[3].hits = newFlotilla[3].hits + 1;
-          break;
-        case 500:
-          newFlotilla[4].hits = newFlotilla[4].hits + 1;
-          break;
-      }
-      newBattleField[x][y] = 'hitted';
-      setBattleField(newBattleField);
-      setShots(shot);
-      setHits(hits + 1);
-      setFlotilla(newFlotilla);
+  const updateDimensions = (dimension) => {
+    if (dimension < 992) {
+      setScreenMode('tablet');
     } else {
-      newBattleField[x][y] = 'miss';
-      setBattleField(newBattleField);
-      setShots(shot);
+      setScreenMode('desktop');
     }
-  }
-
-  let statsPanel = (
-    <Stats
-      flotilla={flotilla}
-      hits={hits}
-      shots={shots}
-    />
-  );
-  let battleFieldPanel = (
-    <Battlefield
-      hits={hits}
-      battleField={battleField}
-      onCellClick={(x: any, y: any) => onCellClick(x, y)}
-      screenMode={screenMode}
-    />
-  );
-
-
+  };
   return (
-    <div className='main-content'>
-      <Container fluid>
-        <Row>{statsPanel}{battleFieldPanel}</Row>
+    <div className="main-content">
+      <Nav resetGame={resetGame} screenMode={screenMode} />
+      <Container>
+        {screenMode === 'desktop' ? (
+          <Row className="show-grid">
+            <Stats />
+            <BattleField
+              onClick={onClick}
+              onCellClick={onCellClick}
+              screenMode={screenMode}
+            />
+          </Row>
+        ) : (
+          <Row className="show-grid">
+            <BattleField
+              onClick={onClick}
+              onCellClick={onCellClick}
+              screenMode={screenMode}
+            />
+            <Stats />
+          </Row>
+        )}
       </Container>
     </div>
   );
 }
 
-export default App
+export default App;

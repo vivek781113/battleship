@@ -1,11 +1,16 @@
-import { shipTypes } from "../constants/constants";
+import { shipTypes } from '../constants/constants';
 
 /*
-* Method generates battlefield with placed ships
-* */
+ * Method generates battlefield with placed ships
+ * */
 export const getBattleField = () => {
-
-  let battleField: any[][] = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => null));
+  let battleField: any = [10];
+  for (let i = 0; i < 10; i++) {
+    battleField[i] = [10];
+    for (let j = 0; j < 10; j++) {
+      battleField[i][j] = null;
+    }
+  }
   for (let i = 0; i < shipTypes.length; i++) {
     battleField = generateShipPositions(shipTypes[i], battleField);
   }
@@ -13,15 +18,15 @@ export const getBattleField = () => {
 };
 
 /*
-* Generates random ship positions
-*
-* @param1 initial ship
-* @param2 initial battlefield
-*
-* @returns updated battlefield
-* */
-const generateShipPositions = (ship: any, battleField: any) => {
-  let shipStartPosition = null;
+ * Generates random ship positions
+ *
+ * @param1 initial ship
+ * @param2 initial battlefield
+ *
+ * @returns updated battlefield
+ * */
+const generateShipPositions = (ship, battleField) => {
+  let shipStartPosition: number[] | null = null;
   let continueLoop = true;
   while (continueLoop) {
     shipStartPosition = getRandomCoordinate();
@@ -33,8 +38,13 @@ const generateShipPositions = (ship: any, battleField: any) => {
       battleField = refillNeighbourCells(battleField, x, y, ship.id);
 
       for (let i = 0; i < directions.length; i++) {
-        let tempBattlefield: any = makeClone(battleField);
-        let newBattleField = tryDirections(directions[i], ship, shipStartPosition, tempBattlefield);
+        let tempBattlefield = makeClone(battleField);
+        let newBattleField = tryDirections(
+          directions[i],
+          ship,
+          shipStartPosition,
+          tempBattlefield
+        );
         if (newBattleField !== null) {
           continueLoop = false;
           battleField = [...newBattleField];
@@ -49,15 +59,15 @@ const generateShipPositions = (ship: any, battleField: any) => {
 };
 
 /*
-*  Method tries different direction of ship placement
-*    @param1 direction
-*    @param2 initialship
-*    @param3 start position
-*    @param4 initial battlefield
-*
-*    @returns new battlefield or null
-* */
-function tryDirections(direction: any, ship: any, shipStartPosition: any, battleField: any) {
+ *  Method tries different direction of ship placement
+ *    @param1 direction
+ *    @param2 initialship
+ *    @param3 start position
+ *    @param4 initial battlefield
+ *
+ *    @returns new battlefield or null
+ * */
+function tryDirections(direction, ship, shipStartPosition, battleField) {
   let x = shipStartPosition[0];
   let y = shipStartPosition[1];
   let wrongDirection = false;
@@ -68,7 +78,10 @@ function tryDirections(direction: any, ship: any, shipStartPosition: any, battle
         if (y + i > 9) {
           wrongDirection = true;
           break;
-        } else if (positionIsFree(battleField, [x, y + i]) || battleField[x][y + i] === ship.id) {
+        } else if (
+          positionIsFree(battleField, [x, y + i]) ||
+          battleField[x][y + i] === ship.id
+        ) {
           battleField[x][y + i] = ship.id * 100;
           refillNeighbourCells(battleField, x, y + i, ship.id);
           wrongDirection = false;
@@ -81,7 +94,10 @@ function tryDirections(direction: any, ship: any, shipStartPosition: any, battle
         if (x + i > 9) {
           wrongDirection = true;
           break;
-        } else if (positionIsFree(battleField, [x + i, y]) || battleField[x + i][y] === ship.id) {
+        } else if (
+          positionIsFree(battleField, [x + i, y]) ||
+          battleField[x + i][y] === ship.id
+        ) {
           battleField[x + i][y] = ship.id * 100;
           refillNeighbourCells(battleField, x + i, y, ship.id);
           wrongDirection = false;
@@ -94,7 +110,10 @@ function tryDirections(direction: any, ship: any, shipStartPosition: any, battle
         if (y - i < 0) {
           wrongDirection = true;
           break;
-        } else if (positionIsFree(battleField, [x, y - i]) || battleField[x][y - i] === ship.id) {
+        } else if (
+          positionIsFree(battleField, [x, y - i]) ||
+          battleField[x][y - i] === ship.id
+        ) {
           battleField[x][y - i] = ship.id * 100;
           refillNeighbourCells(battleField, x, y - i, ship.id);
           wrongDirection = false;
@@ -107,7 +126,10 @@ function tryDirections(direction: any, ship: any, shipStartPosition: any, battle
         if (x - i < 0) {
           wrongDirection = true;
           break;
-        } else if (positionIsFree(battleField, [x - i, y]) || battleField[x - i][y] === ship.id) {
+        } else if (
+          positionIsFree(battleField, [x - i, y]) ||
+          battleField[x - i][y] === ship.id
+        ) {
           battleField[x - i][y] = ship.id * 100;
           refillNeighbourCells(battleField, x - i, y, ship.id);
           wrongDirection = false;
@@ -129,16 +151,16 @@ function tryDirections(direction: any, ship: any, shipStartPosition: any, battle
 }
 
 /*
-*  Method marks neighbour cells of initial position on battlefield
-*
-*  @param1 initial battlefield
-*  @param2 x axis coordinate
-*  @param3 y axis coordinate
-*  @param4 initial ship id
-*
-*  @returns updated battleField
-* */
-const refillNeighbourCells = (battleField: any, x: any, y: any, shipId: any) => {
+ *  Method marks neighbour cells of initial position on battlefield
+ *
+ *  @param1 initial battlefield
+ *  @param2 x axis coordinate
+ *  @param3 y axis coordinate
+ *  @param4 initial ship id
+ *
+ *  @returns updated battleField
+ * */
+const refillNeighbourCells = (battleField, x, y, shipId) => {
   if (y < 9 && battleField[x][y + 1] === null) {
     battleField[x][y + 1] = shipId;
   }
@@ -167,24 +189,24 @@ const refillNeighbourCells = (battleField: any, x: any, y: any, shipId: any) => 
 };
 
 /*
-*  Checks position
-*
-*  @param1 initial battlefield
-*  @param2 initial positin
-*
-*  @return true if position is free
-* */
-const positionIsFree = (battleField: any, position: any) => {
+ *  Checks position
+ *
+ *  @param1 initial battlefield
+ *  @param2 initial positin
+ *
+ *  @return true if position is free
+ * */
+const positionIsFree = (battleField, position) => {
   let x = position[0];
   let y = position[1];
   return !(battleField[x][y] > 0);
 };
 
 /*
-* Returns random sequence of ship placing directions
-* */
+ * Returns random sequence of ship placing directions
+ * */
 const getDirections = () => {
-  let directions = [];
+  let directions: number[] = [];
   for (let i = 0; directions.length < 4; i++) {
     let number = getRandomNumber(4);
     if (directions.indexOf(number) === -1) {
@@ -195,28 +217,28 @@ const getDirections = () => {
 };
 
 /*
-* Returns random coordinate
-* */
+ * Returns random coordinate
+ * */
 const getRandomCoordinate = () => {
   const max = 9;
-  return [Math.floor(Math.random() * max), Math.floor(Math.random() * max)]
+  return [Math.floor(Math.random() * max), Math.floor(Math.random() * max)];
 };
 
 /*
-* Returns random number in range from 0 to @param 'max'
-* */
-const getRandomNumber = (max: number) => {
-  return Math.floor(Math.random() * max)
+ * Returns random number in range from 0 to @param 'max'
+ * */
+const getRandomNumber = (max) => {
+  return Math.floor(Math.random() * max);
 };
 
 /*
-*  Makes clone of battleField
-*
-*  @param initial battleField
-*
-*  @returns clone of initial battleField
-* */
-export const makeClone = (battleField: any) => {
+ *  Makes clone of battleField
+ *
+ *  @param initial battleField
+ *
+ *  @returns clone of initial battleField
+ * */
+export const makeClone = (battleField) => {
   let clone: any = [10];
   for (let i = 0; i < 10; i++) {
     clone[i] = [10];
@@ -226,5 +248,3 @@ export const makeClone = (battleField: any) => {
   }
   return clone;
 };
-
-
