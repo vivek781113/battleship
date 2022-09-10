@@ -8,22 +8,20 @@ import {
 import { Cell } from './Cell';
 import { StartButton } from './StartButton';
 
-export const BattleField: React.FC<any> = (props) => {
-  const { onCellClick, onClick, screenMode } = props;
+export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) => {
   const battleField = useSelector(battlefieldSelector);
   const hits = useSelector(shotsSelector);
   return (
     <Col lg={5} md={6} sm={12} xs={12} className="battleFieldPanel">
       {!battleField && (
         <table
-          className={`emptyBattleField ${
-            screenMode === 'tablet' && 'centered'
-          }`}
+          className={`emptyBattleField ${screenMode === 'tablet' && 'centered'
+            }`}
         >
           <tbody>
             <tr>
               <td className="emptyBattleField">
-                <StartButton onClick={() => onClick()} />
+                <StartButton text="" />
               </td>
             </tr>
           </tbody>
@@ -31,9 +29,8 @@ export const BattleField: React.FC<any> = (props) => {
       )}
       {battleField && hits < 17 && (
         <table
-          className={`battlefieldTable ${
-            screenMode === 'tablet' && 'centered'
-          }`}
+          className={`battlefieldTable ${screenMode === 'tablet' && 'centered'
+            }`}
         >
           <tbody>
             {battleField.map((row, x) => {
@@ -43,7 +40,6 @@ export const BattleField: React.FC<any> = (props) => {
                     return (
                       <td key={y} className="tableCell">
                         <Cell
-                          onCellClick={() => onCellClick(x, y)}
                           x={x}
                           y={y}
                           cellState={column}
@@ -59,16 +55,15 @@ export const BattleField: React.FC<any> = (props) => {
       )}
       {hits === 17 && (
         <table
-          className={`emptyBattleField ${
-            screenMode === 'tablet' && 'centered'
-          }`}
+          className={`emptyBattleField ${screenMode === 'tablet' && 'centered'
+            }`}
         >
           <tbody>
             <tr>
               <td>
                 <div className="text-center">
                   <h1>Game over</h1>
-                  <StartButton onClick={() => onClick()} />
+                  <StartButton text="" />
                 </div>
               </td>
             </tr>

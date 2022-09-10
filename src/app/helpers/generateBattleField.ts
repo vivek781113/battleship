@@ -4,13 +4,7 @@ import { shipTypes } from '../constants/constants';
  * Method generates battlefield with placed ships
  * */
 export const getBattleField = () => {
-  let battleField: any = [10];
-  for (let i = 0; i < 10; i++) {
-    battleField[i] = [10];
-    for (let j = 0; j < 10; j++) {
-      battleField[i][j] = null;
-    }
-  }
+  let battleField: any[][] = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => null));
   for (let i = 0; i < shipTypes.length; i++) {
     battleField = generateShipPositions(shipTypes[i], battleField);
   }
