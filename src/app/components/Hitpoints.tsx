@@ -2,8 +2,7 @@ import React from 'react';
 import hitSmall from './../../assets/img/Hit small.png';
 import missSmall from './../../assets/img/Miss small.png';
 
-export const Hitpoints: React.FC<any> = (props) => {
-  const { hitPoints, hits } = props;
+export const Hitpoints: React.FC<{ hitPoints: number, hits: number }> = ({ hitPoints, hits }) => {
   let hitPointsCounter: any = [];
   let hitCounter: any = [];
   for (let i = 0; i < hitPoints; i++) {

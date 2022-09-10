@@ -12,7 +12,6 @@ export const Cell: React.FC<any> = ({ cellState, x, y }) => {
 
   const cellClick = (x, y, cellState) => {
     if (cellState !== 'miss' && cellState !== 'hitted') {
-      // onCellClick(x, y);
       dispatch(updateBattleField({ x, y }));
     }
   };

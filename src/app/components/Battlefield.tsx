@@ -11,6 +11,7 @@ import { StartButton } from './StartButton';
 export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) => {
   const battleField = useSelector(battlefieldSelector);
   const hits = useSelector(shotsSelector);
+  console.log(battleField);
   return (
     <Col lg={5} md={6} sm={12} xs={12} className="battleFieldPanel">
       {!battleField && (

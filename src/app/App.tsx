@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './App.css';
 import { cloneDeep } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Row, Container } from 'react-bootstrap';
@@ -8,28 +8,26 @@ import { Nav } from './components/Nav';
 import { Stats } from './components/Stats';
 import { shipTypes } from './constants/constants';
 import { getMaxHits } from './helpers/getMaxHits';
-import './App.css';
 import { useDispatch } from 'react-redux';
 import { battleshipActions } from './store/battleship.slice';
 
 function App() {
   const {
-    setBattlefield,
     setFlotilla,
-    setHits,
     setMaxHits,
-    setShots,
   } = battleshipActions;
 
   const dispatch = useDispatch();
 
-  const [screenMode, setScreenMode] = useState<any>(null);
+  const [screenMode, setScreenMode] = useState<string>("");
+
   useEffect(() => {
     const maxHits = getMaxHits();
     let newFlotilla = cloneDeep(shipTypes);
     dispatch(setFlotilla(newFlotilla));
     dispatch(setMaxHits(maxHits));
   }, []);
+
   useEffect(() => {
     window.addEventListener('resize', () =>
       updateDimensions(window.innerWidth)
@@ -44,15 +42,7 @@ function App() {
   }, []);
 
 
-  const resetGame = () => {
-    let newFlotilla = cloneDeep(shipTypes);
-    dispatch(setBattlefield(null));
-    setHits(0);
-    setShots(0);
-    setFlotilla(newFlotilla);
-  };
-
-  const updateDimensions = (dimension) => {
+  const updateDimensions = (dimension: number) => {
     if (dimension < 992) {
       setScreenMode('tablet');
     } else {
@@ -61,7 +51,7 @@ function App() {
   };
   return (
     <div className="main-content">
-      <Nav resetGame={resetGame} screenMode={screenMode} />
+      <Nav screenMode={screenMode} />
       <Container>
         {screenMode === 'desktop' ? (
           <Row className="show-grid">

@@ -1,14 +1,32 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { cloneDeep } from 'lodash';
+import { battleshipActions } from '../store/battleship.slice';
+import { shipTypes } from '../constants/constants';
+
 import {
   Container,
   Nav as BootstrpNav,
   Navbar,
-  NavItem,
 } from 'react-bootstrap';
 
-export const Nav: React.FC<any> = (props) => {
-  const { resetGame, screenMode } = props;
+export const Nav: React.FC<{ screenMode: string }> = ({ screenMode }) => {
+  const {
+    setBattlefield,
+    setFlotilla,
+    setHits,
+    setShots,
+  } = battleshipActions;
+
+  const dispatch = useDispatch();
+  const resetGame = () => {
+    let newFlotilla = cloneDeep(shipTypes);
+    dispatch(setBattlefield(null));
+    setHits(0);
+    setShots(0);
+    setFlotilla(newFlotilla);
+  };
   return (
     <Navbar bg="light" variant="light">
       <Container fluid>
