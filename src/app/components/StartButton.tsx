@@ -18,7 +18,7 @@ export const StartButton: React.FC<{ text: string }> = ({ text }) => {
     dispatch(setBattlefield(getBattleField()));
     dispatch(setHits(0));
     dispatch(setShots(0));
-    setFlotilla(newFlotilla);
+    dispatch(setFlotilla(newFlotilla));
   };
   return (
     <div className="text-center ">

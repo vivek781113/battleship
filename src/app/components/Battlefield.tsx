@@ -34,10 +34,10 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
             }`}
         >
           <tbody>
-            {battleField.map((row, x) => {
+            {battleField.map((row: any[], x: number) => {
               return (
                 <tr key={x}>
-                  {row.map((column, y) => {
+                  {row.map((column: any, y: number) => {
                     return (
                       <td key={y} className="tableCell">
                         <Cell

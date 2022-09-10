@@ -23,9 +23,9 @@ export const Nav: React.FC<{ screenMode: string }> = ({ screenMode }) => {
   const resetGame = () => {
     let newFlotilla = cloneDeep(shipTypes);
     dispatch(setBattlefield(null));
-    setHits(0);
-    setShots(0);
-    setFlotilla(newFlotilla);
+    dispatch(setHits(0));
+    dispatch(setShots(0));
+    dispatch(setFlotilla(newFlotilla));
   };
   return (
     <Navbar bg="light" variant="light">
