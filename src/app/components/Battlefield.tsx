@@ -3,14 +3,14 @@ import { Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {
   battlefieldSelector,
-  shotsSelector,
+  hitsSelector,
 } from '../store/battleship.selectors';
 import { Cell } from './Cell';
 import { StartButton } from './StartButton';
 
 export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) => {
   const battleField = useSelector(battlefieldSelector);
-  const hits = useSelector(shotsSelector);
+  const hits = useSelector(hitsSelector);
   return (
     <Col lg={5} md={6} sm={12} xs={12} className="battleFieldPanel">
       {!battleField && (

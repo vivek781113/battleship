@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Flotilla } from './Flotilla';
 import { Scores } from './Scores';
 
-export const Stats: React.FC<any> = () => {
+export const Stats: React.FC = () => {
   return (
     <Col lg={2} lgoffset={2} md={3} mdoffset={2} sm={12} xs={12}>
       <Row>

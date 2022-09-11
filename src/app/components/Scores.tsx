@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { hitsSelector, shotsSelector } from '../store/battleship.selectors';
 
 export const Scores: React.FC<any> = () => {
-  const shots = useSelector(hitsSelector);
-  const hits = useSelector(shotsSelector);
+  const shots = useSelector(shotsSelector);
+  const hits = useSelector(hitsSelector);
   return (
     <div className="scorePanel text-center">
       <div className="scoreHits">

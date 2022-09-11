@@ -40,9 +40,10 @@ export const battleshipSlice = createSlice({
     },
     updateBattleField: (state, { payload }) => {
       let newBattleField = makeClone(state.battleField);
-
       let newFlotilla = [...state.flotilla];
       let cellValue = state.battleField[payload.x][payload.y];
+      let shot = state.shots + 1;
+      let hits = state.hits;
       if (cellValue >= 100) {
         switch (cellValue) {
           case 100:
@@ -62,13 +63,17 @@ export const battleshipSlice = createSlice({
             break;
         }
         newBattleField[payload.x][payload.y] = 'hitted';
-        state.hits += 1;
+        hits += 1;
+        state.battleField = newBattleField;
+        state.shots = shot;
+        state.hits = hits;
+        state.flotilla = newFlotilla;
       } else {
         newBattleField[payload.x][payload.y] = 'miss';
+        state.battleField = newBattleField;
+        state.shots = shot;
       }
-      state.battleField = newBattleField;
-      state.flotilla = newFlotilla;
-      state.shots += 1;
+
     },
   },
 });
