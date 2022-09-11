@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { hitsSelector, shotsSelector } from '../store/battleship.selectors';
 
-export const Scores: React.FC<any> = () => {
+export const Scores: React.FC = () => {
   const shots = useSelector(shotsSelector);
   const hits = useSelector(hitsSelector);
   return (

@@ -2,14 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { ShipType } from '../models/ship';
 import { makeClone } from '../helpers/generateBattleField';
-
-export interface BattleshipState {
-  battleField: any;
-  flotilla: ShipType[];
-  shots: number;
-  hits: number;
-  maxHits: number;
-}
+import { BattleshipState } from './BattleshipState';
 
 const initialState: BattleshipState = {
   battleField: null,

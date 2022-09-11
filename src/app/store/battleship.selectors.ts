@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { BattleshipState } from './battleship.slice';
+import { BattleshipState } from "./BattleshipState";
 
 const selectSelf = (state: BattleshipState) => state;
 const battlefieldSelector = createSelector(
