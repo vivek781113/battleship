@@ -28,7 +28,7 @@ export const Nav: React.FC<{ screenMode: string }> = ({ screenMode }) => {
     dispatch(setFlotilla(newFlotilla));
   };
   return (
-    <Navbar bg="light" variant="light">
+    <Navbar className="navbar-default">
       <Container fluid>
         <Navbar.Brand>
           {screenMode === 'desktop' ? (
@@ -47,7 +47,7 @@ export const Nav: React.FC<{ screenMode: string }> = ({ screenMode }) => {
         </Navbar.Brand>
         {screenMode === 'desktop' && (
           <BootstrpNav>
-            <BootstrpNav.Link onClick={() => resetGame()}>Restart</BootstrpNav.Link>
+            <BootstrpNav.Item onClick={() => resetGame()}>Restart</BootstrpNav.Item>
           </BootstrpNav>
         )}
       </Container>
