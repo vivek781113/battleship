@@ -57,3 +57,6 @@ export const shipTypes: ShipType[] = [
     hits: 0,
   },
 ];
+
+
+export const MAX_HIT_COUT: number = 17;

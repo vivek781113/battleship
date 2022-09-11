@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { MAX_HIT_COUT } from '../constants/constants';
 import {
   battlefieldSelector,
   hitsSelector,
@@ -27,7 +28,7 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
           </tbody>
         </table>
       )}
-      {battleField && hits < 17 && (
+      {battleField && hits < MAX_HIT_COUT && (
         <table
           className={`battlefieldTable ${screenMode === 'tablet' && 'centered'
             }`}
@@ -53,7 +54,7 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
           </tbody>
         </table>
       )}
-      {hits === 17 && (
+      {hits === MAX_HIT_COUT && (
         <table
           className={`emptyBattleField ${screenMode === 'tablet' && 'centered'
             }`}
