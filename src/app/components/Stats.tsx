@@ -5,7 +5,7 @@ import { Scores } from './Scores';
 
 export const Stats: React.FC = () => {
   return (
-    <Col lg={2} lgoffset={2} md={3} mdoffset={2} sm={12} xs={12}>
+    <Col lg={{ span: 2, offset: 2 }} md={{ span: 3, offset: 2 }} sm={12} xs={12}>
       <Row>
         <div className="scoresPanel">
           <Col md={12} sm={4} xs={12}>
