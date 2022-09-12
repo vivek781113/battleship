@@ -1,5 +1,4 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { MAX_HIT_COUT } from '../constants/constants';
 import {
@@ -9,16 +8,13 @@ import {
 import { Cell } from './Cell';
 import { StartButton } from './StartButton';
 
-export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) => {
+export const BattleField: React.FC = () => {
   const battleField = useSelector(battlefieldSelector);
   const hits = useSelector(hitsSelector);
   return (
-    <Col lg={5} md={6} sm={12} xs={12} className="battleFieldPanel">
+    <div className="battleFieldPanel">
       {!battleField && (
-        <table
-          className={`emptyBattleField ${screenMode === 'tablet' && 'centered'
-            }`}
-        >
+        <table className={`emptyBattleField`}>
           <tbody>
             <tr>
               <td className="emptyBattleField">
@@ -29,10 +25,7 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
         </table>
       )}
       {battleField && hits < MAX_HIT_COUT && (
-        <table
-          className={`battlefieldTable ${screenMode === 'tablet' && 'centered'
-            }`}
-        >
+        <table className={`battlefieldTable `}>
           <tbody>
             {battleField.map((row: any[], x: number) => {
               return (
@@ -40,11 +33,7 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
                   {row.map((column: any, y: number) => {
                     return (
                       <td key={y} className="tableCell">
-                        <Cell
-                          x={x}
-                          y={y}
-                          cellState={column}
-                        />
+                        <Cell x={x} y={y} cellState={column} />
                       </td>
                     );
                   })}
@@ -55,10 +44,7 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
         </table>
       )}
       {hits === MAX_HIT_COUT && (
-        <table
-          className={`emptyBattleField ${screenMode === 'tablet' && 'centered'
-            }`}
-        >
+        <table className={`emptyBattleField `}>
           <tbody>
             <tr>
               <td>
@@ -71,6 +57,6 @@ export const BattleField: React.FC<{ screenMode: string }> = ({ screenMode }) =>
           </tbody>
         </table>
       )}
-    </Col>
+    </div>
   );
 };

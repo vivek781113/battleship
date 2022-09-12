@@ -5,7 +5,6 @@ import { Hitpoints } from './Hitpoints';
 
 export const Flotilla: React.FC = () => {
   const flotilla = useSelector(flotillaSelector);
-  console.log(flotilla);
   return (
     <ul className="flotillaContainer">
       {flotilla?.map((ship, index) => {

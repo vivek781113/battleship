@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { cloneDeep } from 'lodash';
 import { useEffect, useState } from 'react';
-import { Row, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { BattleField } from './components/BattleField';
 import { Nav } from './components/Nav';
 import { Stats } from './components/Stats';
@@ -12,14 +12,11 @@ import { useDispatch } from 'react-redux';
 import { battleshipActions } from './store/battleship.slice';
 
 function App() {
-  const {
-    setFlotilla,
-    setMaxHits,
-  } = battleshipActions;
+  const { setFlotilla, setMaxHits } = battleshipActions;
 
   const dispatch = useDispatch();
 
-  const [screenMode, setScreenMode] = useState<string>("");
+  const [screenMode, setScreenMode] = useState<string>('');
 
   useEffect(() => {
     const maxHits = getMaxHits();
@@ -41,9 +38,8 @@ function App() {
     };
   }, []);
 
-
   const updateDimensions = (dimension: number) => {
-    if (dimension < 992) {
+    if (dimension < 900) {
       setScreenMode('tablet');
     } else {
       setScreenMode('desktop');
@@ -52,21 +48,17 @@ function App() {
   return (
     <div className="main-content">
       <Nav screenMode={screenMode} />
-      <Container>
+      <Container fluid>
         {screenMode === 'desktop' ? (
-          <Row className="show-grid">
+          <div className="show-grid">
             <Stats />
-            <BattleField
-              screenMode={screenMode}
-            />
-          </Row>
+            <BattleField />
+          </div>
         ) : (
-          <Row className="show-grid">
-            <BattleField
-              screenMode={screenMode}
-            />
+          <div className="show-grid">
+            <BattleField />
             <Stats />
-          </Row>
+          </div>
         )}
       </Container>
     </div>
